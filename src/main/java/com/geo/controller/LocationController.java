@@ -1,7 +1,5 @@
 package com.geo.controller;
 
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +8,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.geo.entity.LocationEntity;
+import com.geo.dto.CampusDto;
 import com.geo.service.LocationService;
 @CrossOrigin
 @RestController
@@ -33,18 +28,18 @@ public class LocationController {
 
     
 
-    @PostMapping
-    public LocationEntity addLocation(@RequestParam String name,
-                                      @RequestParam double lat,
-                                      @RequestParam double lon) {
-        return locService.saveLocation(name, lat, lon);
-    }
-
-    @GetMapping
-    public List<LocationEntity> getAllLocations() {
-        return locService.getAll();
-    }
-    
+//    @PostMapping
+//    public LocationEntity addLocation(@RequestParam String name,
+//                                      @RequestParam double lat,
+//                                      @RequestParam double lon) {
+//        return locService.saveLocation(name, lat, lon);
+//    }
+//
+//    @GetMapping
+//    public List<LocationEntity> getAllLocations() {
+//        return locService.getAll();
+//    }
+//    
 
     
 //    @GetMapping("/{district}")
@@ -138,8 +133,10 @@ public class LocationController {
 //    
     
 
-
-    	
+	@GetMapping("/buildings")
+	public List<CampusDto> getAllBuildingAddress(){
+		return locService.getAllBuildingAddress();
+	}
     
     
     
