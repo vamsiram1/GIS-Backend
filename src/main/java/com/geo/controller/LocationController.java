@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.geo.dto.BuildingDto;
 import com.geo.dto.CampusDto;
 import com.geo.service.LocationService;
 @CrossOrigin
@@ -139,6 +140,11 @@ public class LocationController {
 	}
     
     
+	
+	 @GetMapping("/getallbuildings")
+	 public List<BuildingDto> getAllBuildingsAddress(){
+		 return locService.getByBuidlingAddress();
+	 }
     
     
     

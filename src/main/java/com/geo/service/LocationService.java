@@ -6,10 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geo.dto.BuildingDto;
 import com.geo.dto.CampusDto;
+import com.geo.entity.Building;
 import com.geo.entity.BuildingEntity;
+import com.geo.entity.Campus;
+import com.geo.repo.Building2Repository;
 import com.geo.repo.BuildingAddressRepository;
 import com.geo.repo.BuildingRepository;
+import com.geo.repo.Campus2Repository;
 import com.geo.repo.CampusRepository;
 import com.geo.repo.CityRepository;
 import com.geo.repo.CountryRepository;
@@ -42,7 +47,14 @@ public class LocationService {
 	@Autowired
 	private CityRepository cityRepo;
 	
-	@Autowired CampusRepository campusRepo;
+	@Autowired 
+	private CampusRepository campusRepo;
+	
+	@Autowired
+	private Building2Repository buildingRepo2;
+	
+	@Autowired
+	private Campus2Repository campusRepo2;
 	
 
 	
@@ -100,6 +112,34 @@ public class LocationService {
 //		return locRepo.findAll();
 //	}
 
+	
+	
+	public List<BuildingDto> getByBuidlingAddress(){
+		List<Campus> campuses = campusRepo2.findAll();
+		
+		List<BuildingDto> buildingIds = new ArrayList<>();
+		
+		for(Campus campus: campuses) {
+			List<Building> buildings =  buildingRepo2.findByCampus(campus);
+			for(Building building : buildings) {
+				BuildingDto buildingAdd = new BuildingDto();
+				buildingAdd.setBuilding_address(building.getBuilding_address());
+				buildingAdd.setBuilding_name(building.getBuildingName());
+				buildingAdd.setBuilding_purpose(building.getBuilding_purpose());
+				buildingAdd.setLatitude(building.getLatitude());
+				buildingAdd.setLongitude(building.getLongitude());
+				buildingAdd.setLand_mark(building.getLand_mark());
+				buildingAdd.setStreet(building.getStreet());
+				buildingAdd.setCampus_name(campus.getCampusName());
+				buildingAdd.setCampus_type(campus.getCampus_type());
+				buildingAdd.setCollege_type(campus.getCollege_type());
+				buildingIds.add(buildingAdd);
+			}
+		}
+		
+		return buildingIds;
+		
+	}
 	
 	
 
